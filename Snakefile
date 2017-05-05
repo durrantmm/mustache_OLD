@@ -104,7 +104,7 @@ rule bowtie_align_genome:
     output:
         sam = "{genome_sam_dir}/{{sample}}.{{pair}}.{{genome}}.sam".format(genome_sam_dir=GENOME_SAM_DIR)
     shell:
-        "bowtie2 -x {input.genome} -U {input.fastq} -S {output.sam} -p 6 --local --quiet --reorder"
+        "bowtie2 -x {input.genome} -U {input.fastq} -S {output.sam} --local --quiet --reorder"
 
 
 rule bowtie_align_insertseq:
@@ -120,7 +120,7 @@ rule bowtie_align_insertseq:
     output:
         sam = "{insertseq_sam_dir}/{{sample}}.{{pair}}.{{insertseq}}.sam".format(insertseq_sam_dir=INSERTSEQ_SAM_DIR)
     shell:
-        "bowtie2 -x {input.insertseq} -U {input.fastq} -S {output.sam} -p 6 --local --quiet --reorder"
+        "bowtie2 -x {input.insertseq} -U {input.fastq} -S {output.sam} --local --quiet --reorder"
 
 
 rule split_sam_by_class:
