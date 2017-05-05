@@ -8,3 +8,4 @@ dependencies:
   - pysam=0.11.1
   - samtools=1.4
   - bowtie2=2.3.0
+  - python-wget=3.2
