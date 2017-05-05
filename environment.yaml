@@ -10,3 +10,4 @@ dependencies:
   - bowtie2=2.3.0
   - python-wget=3.2
   - r-readr=0.2.2
+  - r-ggplot2=2.2.1
