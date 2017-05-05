@@ -99,7 +99,7 @@ def class_gen(class_path):
         infile.readline()
         for line in infile:
             line=line.strip().split()
-            yield(line[0].strip('@'), line[2])
+            yield(line[0].strip('@'), line[1])
 
 
 if __name__ == '__main__':
