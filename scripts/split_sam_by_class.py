@@ -29,11 +29,11 @@ def main(genome_sam_r1, genome_sam_r2, insertseq_sam_r1, insertseq_sam_r2, class
 
     for genome_read1, genome_read2, inseq_read1, inseq_read2, class1, class2 in zip_tuple:
 
-        if not (genome_read1.query_name == genome_read2.query_name == class1[0] == class2[0]):
-            print("ERROR: The fastq and class files you provided are not ordered properly. Aborting")
-            print("CASE:", sample, genome, inseq)
-            print("NAMES:", genome_read1.query_name, genome_read2.query_name, class1[0], class2[0])
-            sys.exit()
+        #if not (genome_read1.query_name == genome_read2.query_name == class1[0] == class2[0]):
+        #    print("ERROR: The fastq and class files you provided are not ordered properly. Aborting")
+        #    print("CASE:", sample, genome, inseq)
+        #    print("NAMES:", genome_read1.query_name, genome_read2.query_name, class1[0], class2[0])
+        #    sys.exit()
 
         if genome_read1.is_unmapped and inseq_read2.is_unmapped and genome_read2.is_unmapped and inseq_read1.is_unmapped:
             continue
