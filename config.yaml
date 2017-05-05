@@ -1,0 +1,16 @@
+output_dir: /Users/mdurrant/OneDrive/Stanford/BhattLab/git_repo/mustache/output
+fastq_dir: 0.fastq
+genome_dir: 0.genome
+class_dir: 0.class
+insertseq_dir: 0.insertseq
+genome_sam_dir: 1.genome_sam
+insertseq_sam_dir: 1.insertseq_sam
+class_insertseq_sam_dir: 2.class_insertseq_sam
+class_genome_sam_dir: 2.class_genome_sam
+sam_merged_taxonomy_dir: 3.sam_merged_taxonomy
+sam_sorted_dir: 4.sams_sorted_indexed
+peaks_dir: 5.peaks_dir
+peaks_read_depth_dir: 5.peak_read_depths
+peak_plots_dir: 6.peak_plots
+
+taxonomy_db_dir: taxonomy
