@@ -129,8 +129,8 @@ rule split_sam_by_class:
         genome_sam_R2 = "{genome_sam_dir}/{{sample}}.{pair}.{{genome}}.sam".format(genome_sam_dir=GENOME_SAM_DIR, pair=PAIRS[1]),
         insertseq_sam_R1 = "{insertseq_sam_dir}/{{sample}}.{pair}.{{insertseq}}.sam".format(insertseq_sam_dir=INSERTSEQ_SAM_DIR, pair=PAIRS[0]),
         insertseq_sam_R2 = "{insertseq_sam_dir}/{{sample}}.{pair}.{{insertseq}}.sam".format(insertseq_sam_dir=INSERTSEQ_SAM_DIR, pair=PAIRS[1]),
-        class_R1 = "{class_dir}/{{sample}}.{pair}.class".format(class_dir=CLASS_DIR, pair=PAIRS[0]),
-        class_R2 = "{class_dir}/{{sample}}.{pair}.class".format(class_dir=CLASS_DIR, pair=PAIRS[1])
+        class_R1 = "{class_dir}/{{sample}}.{pair}.class.gz".format(class_dir=CLASS_DIR, pair=PAIRS[0]),
+        class_R2 = "{class_dir}/{{sample}}.{pair}.class.gz".format(class_dir=CLASS_DIR, pair=PAIRS[1])
 
     output:
         genome_sam_stats = "{class_genome_sam_dir}/{{sample}}.{{genome}}.{{insertseq}}.stats".format(class_genome_sam_dir=CLASS_GENOME_SAM_DIR),

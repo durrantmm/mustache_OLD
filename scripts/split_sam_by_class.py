@@ -1,5 +1,6 @@
 import sys
 import pysam
+import gzip
 from os.path import basename, join, dirname
 
 def main(genome_sam_r1, genome_sam_r2, insertseq_sam_r1, insertseq_sam_r2, class_r1, class_r2,
@@ -91,8 +92,9 @@ def main(genome_sam_r1, genome_sam_r2, insertseq_sam_r1, insertseq_sam_r2, class
 def is_mapped(read):
     return not read.is_unmapped
 
+
 def class_gen(class_path):
-    with open(class_path) as infile:
+    with gzip.open(class_path) as infile:
         infile.readline()
         for line in infile:
             line=line.strip().split()
