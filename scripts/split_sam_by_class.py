@@ -94,7 +94,7 @@ def is_mapped(read):
 
 
 def class_gen(class_path):
-    with gzip.open(class_path, 'rb') as infile:
+    with gzip.open(class_path, 'rt') as infile:
         infile.readline()
         for line in infile:
             line=line.strip().split()
