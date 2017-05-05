@@ -1,4 +1,5 @@
 import sys, os
+from os.path import dirname, join, abspath
 import wget, tarfile
 
 def main(taxondb):
@@ -22,7 +23,6 @@ def untar(fname, delete=False):
 
 
 if __name__ == '__main__':
-
-    taxondb = sys.argv[1]
+    taxondb = join( dirname(dirname(abspath(os.sys.argv[0]))), 'taxonomy' )
 
     main(taxondb)
