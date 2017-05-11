@@ -62,7 +62,7 @@ rule all:
         expand("{peak_plots_dir}/{{sample}}.{{genome}}.{{insertseq}}".format(peak_plots_dir=PEAKS_PLOTS_DIR),
                sample=SAMPLES, insertseq=INSERTSEQS, genome=GENOMES)
     run:
-        print("COMPLETED SUCCESSFULLY!")
+        print("MUSTACHE FINISHED WITH NO EXCEPTIONS!")
 
 
 rule download_taxonomy_db:
