@@ -61,6 +61,8 @@ rule all:
     input:
         expand("{peak_plots_dir}/{{sample}}.{{genome}}.{{insertseq}}".format(peak_plots_dir=PEAKS_PLOTS_DIR),
                sample=SAMPLES, insertseq=INSERTSEQS, genome=GENOMES)
+    run:
+        print("COMPLETED SUCCESSFULLY!")
 
 
 rule bowtie_build_genome:
