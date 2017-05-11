@@ -59,7 +59,7 @@ INSERTSEQS = WC_inseqs.insertseq
 rule download_taxonomy_db:
     output:
         config['taxonomy_db_dir']
-    run:
+    shell:
         'python scripts/download_taxonomy_db.py'
 
 rule all:
