@@ -9,18 +9,18 @@ This pipeline requires you to create a conda environment, so that you can then e
 ### Download mustache
 From a unix terminal, type the following:
 
-----
+~~~~
 git clone git@github.com:durrantmm/mustache.git
 cd mustache
-----
+~~~~
 
  You are now in the downloaded `mustache` directory.
  
  Let's now create a conda environment from the provided `environment.yaml` file in the `mustache` directory:
 
-----
+~~~~
 conda env create -f environment.yaml
-----
+~~~~
 
  When asked if you want to install of the packages, type `y` and enter.
 
