@@ -153,7 +153,7 @@ rule split_sam_by_class:
 
 rule sam_merge_taxonomy:
     input:
-        taxonomy_db_dir = config['taxonomy_db_dir']
+        taxonomy_db_dir = config['taxonomy_db_dir'],
         genome_sam_stats = "{class_genome_sam_dir}/{{sample}}.{{genome}}.{{insertseq}}.stats".format(class_genome_sam_dir=CLASS_GENOME_SAM_DIR),
     output:
         "{sam_merged_taxonomy_dir}/{{sample}}.{{genome}}.{{insertseq}}.bam".format(sam_merged_taxonomy_dir=SAM_MERGED_TAXONOMY)
