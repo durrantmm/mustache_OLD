@@ -56,6 +56,11 @@ PAIRS = ['R1', 'R2']
 GENOMES = WC_genomes.genome
 INSERTSEQS = WC_inseqs.insertseq
 
+rule download_taxonomy_db:
+    output:
+        config['taxonomy_db_dir']
+    run:
+        'python scripts/download_taxonomy_db.py'
 
 rule all:
     input:
@@ -148,11 +153,12 @@ rule split_sam_by_class:
 
 rule sam_merge_taxonomy:
     input:
+        taxonomy_db_dir = config['taxonomy_db_dir']
         genome_sam_stats = "{class_genome_sam_dir}/{{sample}}.{{genome}}.{{insertseq}}.stats".format(class_genome_sam_dir=CLASS_GENOME_SAM_DIR),
     output:
         "{sam_merged_taxonomy_dir}/{{sample}}.{{genome}}.{{insertseq}}.bam".format(sam_merged_taxonomy_dir=SAM_MERGED_TAXONOMY)
     shell:
-        "python scripts/sam_merge_taxonomy.py {input} {output} " + config['taxonomy_db_dir']
+        "python scripts/sam_merge_taxonomy.py {input.genome_sam_stats} {output} {input.taxonomy_db_dir}"
 
 
 rule samtools_sort:
