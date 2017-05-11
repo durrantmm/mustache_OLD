@@ -14,14 +14,36 @@ git clone git@github.com:durrantmm/mustache.git
 cd mustache
 ~~~~
 
- You are now in the downloaded `mustache` directory.
+You are now in the downloaded `mustache` directory.
  
- Let's now create a conda environment from the provided `environment.yaml` file in the `mustache` directory:
+### Install mustache
+Let's now create a conda environment from the provided `environment.yaml` file in the `mustache` directory:
 
 ~~~~
 conda env create -f environment.yaml
 ~~~~
 
- When asked if you want to install of the packages, type `y` and enter.
+You can then activate the mustache conda environment with the command:
+
+~~~~
+source activate mustache
+~~~~
+
+### Test installation
+Mustache should now be ready to go, but first let's test the installation.
+From the mustache directory, run
+~~~~
+snakemake --config output_dir=test -p
+~~~~
+
+After a few seconds of running, you should see the process end with the message
+
+~~~~
+MUSTACHE FINISHED WITH NO EXCEPTIONS!
+~~~~
+
+Mustache should now be properly installed.
+
+### Preparing input files
 
 
