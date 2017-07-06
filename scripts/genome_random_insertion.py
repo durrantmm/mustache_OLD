@@ -27,8 +27,9 @@ def main(genome_path, insertion_path, number, out_fasta):
 
         offset = 0
         for site in sorted(insertion_sites):
-            print("%s:%d" % (chrom.name, site))
+            print("%s:%d %s:%d" % (chrom.name, site, chrom.name, site+offset))
             seq = seq[:site+offset] + inseq + seq[site+offset:]
+            offset += len(inseq)
 
         chrom.seq = seq
         out_genome.append(chrom)

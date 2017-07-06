@@ -10,7 +10,7 @@ This pipeline requires you to create a conda environment, so that you can then e
 From a unix terminal, type the following:
 
 ~~~~
-git clone git@github.com:durrantmm/mustache.git
+git clone https://github.com/durrantmm/mustache.git
 cd mustache
 ~~~~
 
