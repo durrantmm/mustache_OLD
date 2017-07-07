@@ -39,43 +39,43 @@ def main(genome_sam_r1, genome_sam_r2, insertseq_sam_r1, insertseq_sam_r2, class
             continue
 
         elif is_mapped(genome_read1) and is_mapped(inseq_read2):
-            if not class1[1] in output_sams:
-                output_sams[class1[1]] = [pysam.AlignmentFile(
+            if not class1 in output_sams:
+                output_sams[class1] = [pysam.AlignmentFile(
                     join(class_genome_sam_dir, "{sample}.{genome}.{inseq}.{taxon}.bam".format(sample=sample,
                                                                                               genome=genome,
                                                                                               inseq=inseq,
-                                                                                              taxon=class1[1])),
+                                                                                              taxon=class1)),
                     "wb", template=genome_sam_r1),
                     pysam.AlignmentFile(
                         join(class_insertseq_sam_dir, "{sample}.{genome}.{inseq}.{taxon}.bam".format(sample=sample,
                                                                                                      genome=genome,
                                                                                                      inseq=inseq,
-                                                                                                     taxon=class1[1])),
+                                                                                                     taxon=class1)),
                         "wb", template=insertseq_sam_r2)
                 ]
 
-            genome_read1.query_name = genome_read1.query_name + ':' + class1[1]
-            output_sams[class1[1]][0].write(genome_read1)
-            output_sams[class1[1]][1].write(inseq_read2)
+            genome_read1.query_name = genome_read1.query_name + ':' + class1
+            output_sams[class1][0].write(genome_read1)
+            output_sams[class1][1].write(inseq_read2)
 
         elif is_mapped(genome_read2) and is_mapped(inseq_read1):
-            if not class2[1] in output_sams:
-                output_sams[class2[1]] = [pysam.AlignmentFile(
+            if not class2 in output_sams:
+                output_sams[class2] = [pysam.AlignmentFile(
                     join(class_genome_sam_dir, "{sample}.{genome}.{inseq}.{taxon}.bam".format(sample=sample,
                                                                                               genome=genome,
                                                                                               inseq=inseq,
-                                                                                              taxon=class2[1])),
+                                                                                              taxon=class2)),
                     "wb", template=genome_sam_r2),
                     pysam.AlignmentFile(
                         join(class_insertseq_sam_dir, "{sample}.{genome}.{inseq}.{taxon}.bam".format(sample=sample,
                                                                                                      genome=genome,
                                                                                                      inseq=inseq,
-                                                                                                     taxon=class2[1])),
+                                                                                                     taxon=class2)),
                         "wb", template=insertseq_sam_r1)
                 ]
-            genome_read2.query_name = genome_read2.query_name + ':' +  class2[1]
-            output_sams[class2[1]][0].write(genome_read2)
-            output_sams[class2[1]][1].write(inseq_read1)
+            genome_read2.query_name = genome_read2.query_name + ':' +  class2
+            output_sams[class2][0].write(genome_read2)
+            output_sams[class2][1].write(inseq_read1)
 
 
     with open(join(class_genome_sam_dir, "{sample}.{genome}.{inseq}.stats".format(sample=sample,
@@ -89,7 +89,6 @@ def main(genome_sam_r1, genome_sam_r2, insertseq_sam_r1, insertseq_sam_r2, class
         stats_out2.write("STATS GO HERE")
 
 
-
 def is_mapped(read):
     return not read.is_unmapped
 
@@ -99,7 +98,7 @@ def class_gen(class_path):
         infile.readline()
         for line in infile:
             line=line.strip().split()
-            yield(line[0].strip('@'), line[1])
+            yield(line[0])
 
 
 if __name__ == '__main__':
