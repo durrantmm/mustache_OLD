@@ -1,4 +1,4 @@
-output_dir: /Users/mdurrant/OneDrive/Stanford/BhattLab/git_repo/mustache/output
+output_dir: test
 fastq_dir: 0.fastq
 genome_dir: 0.genome
 class_dir: 0.class

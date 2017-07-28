@@ -10,40 +10,14 @@ CLASS_DIR = os.path.join(OUTPUT_DIR, config['class_dir'])
 INSERTSEQ_DIR = os.path.join(OUTPUT_DIR, config['insertseq_dir'])
 
 GENOME_SAM_DIR = os.path.join(OUTPUT_DIR, config['genome_sam_dir'])
-if not os.path.isdir(GENOME_SAM_DIR):
-    os.makedirs(GENOME_SAM_DIR)
-
 INSERTSEQ_SAM_DIR = os.path.join(OUTPUT_DIR, config['insertseq_sam_dir'])
-if not os.path.isdir(INSERTSEQ_SAM_DIR):
-    os.makedirs(INSERTSEQ_SAM_DIR)
-
 CLASS_INSERTSEQ_SAM_DIR = os.path.join(OUTPUT_DIR, config['class_insertseq_sam_dir'])
-if not os.path.isdir(CLASS_INSERTSEQ_SAM_DIR):
-    os.makedirs(CLASS_INSERTSEQ_SAM_DIR)
-
 CLASS_GENOME_SAM_DIR = os.path.join(OUTPUT_DIR, config['class_genome_sam_dir'])
-if not os.path.isdir(CLASS_GENOME_SAM_DIR):
-    os.makedirs(CLASS_GENOME_SAM_DIR)
-
 SAM_MERGED_TAXONOMY = os.path.join(OUTPUT_DIR, config['sam_merged_taxonomy_dir'])
-if not os.path.isdir(SAM_MERGED_TAXONOMY):
-    os.makedirs(SAM_MERGED_TAXONOMY)
-
 SAM_SORTED_DIR = os.path.join(OUTPUT_DIR, config['sam_sorted_dir'])
-if not os.path.isdir(SAM_SORTED_DIR):
-    os.makedirs(SAM_SORTED_DIR)
-
 PEAKS_DIR = os.path.join(OUTPUT_DIR, config['peaks_dir'])
-if not os.path.isdir(PEAKS_DIR):
-    os.makedirs(PEAKS_DIR)
-
 PEAKS_READ_DEPTHS_DIR = os.path.join(OUTPUT_DIR, config['peaks_read_depth_dir'])
-if not os.path.isdir(PEAKS_READ_DEPTHS_DIR):
-    os.makedirs(PEAKS_READ_DEPTHS_DIR)
-
 PEAKS_PLOTS_DIR = os.path.join(OUTPUT_DIR, config['peak_plots_dir'])
-if not os.path.isdir(PEAKS_PLOTS_DIR):
-    os.makedirs(PEAKS_PLOTS_DIR)
 
 WC_fastqs = glob_wildcards(os.path.join(FASTQ_DIR, "{sample}.{pair}.fastq.gz"))
 WC_genomes = glob_wildcards(os.path.join(GENOME_DIR, "{genome}.fasta"))
@@ -113,7 +87,7 @@ rule bowtie_align_genome:
     output:
         sam = "{genome_sam_dir}/{{sample}}.{{pair}}.{{genome}}.sam".format(genome_sam_dir=GENOME_SAM_DIR)
     shell:
-        "bowtie2 -x {input.genome} -U {input.fastq} -S {output.sam} --local --quiet --reorder"
+        "bowtie2 -x {input.genome} -U {input.fastq} -S {output.sam} --local --quiet --reorder --no-unal"
 
 
 rule bowtie_align_insertseq:
@@ -129,7 +103,7 @@ rule bowtie_align_insertseq:
     output:
         sam = "{insertseq_sam_dir}/{{sample}}.{{pair}}.{{insertseq}}.sam".format(insertseq_sam_dir=INSERTSEQ_SAM_DIR)
     shell:
-        "bowtie2 -x {input.insertseq} -U {input.fastq} -S {output.sam} --local --quiet --reorder"
+        "bowtie2 -x {input.insertseq} -U {input.fastq} -S {output.sam} --local --quiet --reorder --no-unal"
 
 
 rule split_sam_by_class:
@@ -188,8 +162,10 @@ rule call_peaks:
     output:
         "{peaks_dir}/{{sample}}.{{genome}}.{{insertseq}}.peaks.tsv".format(peaks_dir=PEAKS_DIR),
         "{peaks_read_depth_dir}/{{sample}}.{{genome}}.{{insertseq}}".format(peaks_read_depth_dir=PEAKS_READ_DEPTHS_DIR)
+    params:
+        depth_cutoff = 5
     shell:
-        "python scripts/call_peaks.py {input.bam} {output}"
+        "python scripts/call_peaks.py {input.bam} {output} {params.depth_cutoff}"
 
 
 rule plot_peaks:

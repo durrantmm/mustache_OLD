@@ -1,13 +1,14 @@
 name: mustache
 channels:
+  - conda-forge
   - bioconda
 dependencies:
   - python=3.5.3
-  - r-recommended=3.3.1
-  - snakemake=3.11.2
-  - pysam=0.11.1
-  - samtools=1.4
-  - bowtie2=2.3.0
-  - python-wget=3.2
-  - r-readr=0.2.2
-  - r-ggplot2=2.2.1
+  - r-recommended
+  - snakemake
+  - pysam
+  - samtools
+  - bowtie2
+  - python-wget
+  - r-readr
+  - r-ggplot2

@@ -5,7 +5,7 @@ import os
 from collections import defaultdict
 
 
-def main(bam_path, out_path, depth_out_path, lower_perc_depth_cutoff=0.01, lower_depth_cutoff=10, window_size=1000):
+def main(bam_path, out_path, depth_out_path, lower_perc_depth_cutoff=0.01, lower_depth_cutoff=1, window_size=1000):
 
     sample = basename(bam_path).split('.')[0]
     genome_taxon = basename(bam_path).split('.')[1]
@@ -244,5 +244,6 @@ if __name__ == '__main__':
     bam_path = sys.argv[1]
     out_path = sys.argv[2]
     depth_out_path = sys.argv[3]
+    depth_cutoff = int(sys.argv[4])
 
-    main(bam_path, out_path, depth_out_path)
+    main(bam_path, out_path, depth_out_path, lower_depth_cutoff=depth_cutoff)
