@@ -3,7 +3,7 @@ import pysam
 import gzip
 from os.path import basename, join, dirname
 
-def main(genome_sam_r1, genome_sam_r2,
+def main(fastq, genome_sam_r1, genome_sam_r2,
          insertseq_sam_r1, insertseq_sam_r2, class_r1, class_r2,
          class_insertseq_sam_stats, class_genome_sam_stats):
 
@@ -26,6 +26,8 @@ def main(genome_sam_r1, genome_sam_r2,
     class_r1 = class_gen(class_r1)
     class_r2 = class_gen(class_r2)
 
+    fastq = fastq_gen(fastq)
+
     output_sams = dict()
 
     genome_read1 = next(genome_sam_r1)
@@ -34,10 +36,14 @@ def main(genome_sam_r1, genome_sam_r2,
     inseq_read2 = next(insertseq_sam_r2)
 
     class_tuple = zip(class_r1, class_r2)
+
     for class1, class2 in class_tuple:
 
         c1_name, c1_taxon = class1
         c2_name, c2_taxon = class2
+
+        # Ugly code, fix this later
+        c1_name = next(fastq)
 
         gen1 = genome_read1[0]
         gen2 = genome_read2[0]
@@ -96,6 +102,7 @@ def main(genome_sam_r1, genome_sam_r2,
             continue
 
         elif c1_name == gen1 == is2:
+
             if not c1_taxon in output_sams:
                 output_sams[c1_taxon] = [pysam.AlignmentFile(
                     join(class_genome_sam_dir, "{sample}.{genome}.{inseq}.{taxon}.bam".format(sample=sample,
@@ -165,7 +172,6 @@ def main(genome_sam_r1, genome_sam_r2,
         else:
             continue
 
-
     with open(join(class_genome_sam_dir, "{sample}.{genome}.{inseq}.stats".format(sample=sample,
                                                                                   genome=genome,
                                                                                   inseq=inseq)), 'w') as stats_out1:
@@ -193,21 +199,29 @@ def class_gen(class_path):
         infile.readline()
         for line in infile:
             line=line.strip().split()
-            yield (line[0].strip('@'), line[1])
+            yield ('tmp', line[0])
+
+def fastq_gen(fastq_path):
+    with gzip.open(fastq_path, 'rt') as infile:
+        num = 0
+        for line in infile:
+            if num % 4 == 0:
+                yield line.strip().split()[0].strip('@')
+            num += 1
 
 
 if __name__ == '__main__':
+    fastq = sys.argv[1]
+    genome_sam_r1 = sys.argv[2]
+    genome_sam_r2 = sys.argv[3]
+    insertseq_sam_r1 = sys.argv[4]
+    insertseq_sam_r2 = sys.argv[5]
+    class_r1 = sys.argv[6]
+    class_r2 = sys.argv[7]
+    class_genome_sam_stats = sys.argv[8]
+    class_insertseq_sam_stats = sys.argv[9]
 
-    genome_sam_r1 = sys.argv[1]
-    genome_sam_r2 = sys.argv[2]
-    insertseq_sam_r1 = sys.argv[3]
-    insertseq_sam_r2 = sys.argv[4]
-    class_r1 = sys.argv[5]
-    class_r2 = sys.argv[6]
-    class_genome_sam_stats = sys.argv[7]
-    class_insertseq_sam_stats = sys.argv[8]
 
-
-    main(genome_sam_r1, genome_sam_r2, insertseq_sam_r1,
+    main(fastq, genome_sam_r1, genome_sam_r2, insertseq_sam_r1,
          insertseq_sam_r2, class_r1, class_r2,
          class_insertseq_sam_stats, class_genome_sam_stats)

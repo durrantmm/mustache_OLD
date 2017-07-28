@@ -108,6 +108,7 @@ rule bowtie_align_insertseq:
 
 rule split_sam_by_class:
     input:
+        fastq = "{fastq_dir}/{{sample}}.{pair}.fastq.gz".format(fastq_dir=FASTQ_DIR, pair=PAIRS[0]),
         genome_sam_R1 = "{genome_sam_dir}/{{sample}}.{pair}.{{genome}}.sam".format(genome_sam_dir=GENOME_SAM_DIR, pair=PAIRS[0]),
         genome_sam_R2 = "{genome_sam_dir}/{{sample}}.{pair}.{{genome}}.sam".format(genome_sam_dir=GENOME_SAM_DIR, pair=PAIRS[1]),
         insertseq_sam_R1 = "{insertseq_sam_dir}/{{sample}}.{pair}.{{insertseq}}.sam".format(insertseq_sam_dir=INSERTSEQ_SAM_DIR, pair=PAIRS[0]),
@@ -121,6 +122,7 @@ rule split_sam_by_class:
 
     shell:
         "python scripts/split_sam_by_class.py "
+        "{input.fastq} "
         "{input.genome_sam_R1} {input.genome_sam_R2} "
         "{input.insertseq_sam_R1} {input.insertseq_sam_R2} "
         "{input.class_R1} {input.class_R2} "
@@ -173,7 +175,6 @@ rule plot_peaks:
         "{peaks_read_depth_dir}/{{sample}}.{{genome}}.{{insertseq}}".format(peaks_read_depth_dir=PEAKS_READ_DEPTHS_DIR)
     output:
         "{peak_plots_dir}/{{sample}}.{{genome}}.{{insertseq}}".format(peak_plots_dir=PEAKS_PLOTS_DIR)
-
     shell:
         "Rscript scripts/create_peak_graphs.R {input} {output}"
 
