@@ -10,8 +10,8 @@ def main(fastq, genome_sam_r1, genome_sam_r2,
     class_genome_sam_dir = dirname(class_genome_sam_stats)
     class_insertseq_sam_dir = dirname(class_insertseq_sam_stats)
 
-    genome_template = pysam.AlignmentFile(genome_sam_r1, "r")
-    insertseq_template = pysam.AlignmentFile(insertseq_sam_r1, "r")
+    genome_template = pysam.AlignmentFile(genome_sam_r1, "rb")
+    insertseq_template = pysam.AlignmentFile(insertseq_sam_r1, "rb")
 
     sample = basename(genome_sam_r1).split('.')[0]
     genome = basename(genome_sam_r1).split('.')[-2]

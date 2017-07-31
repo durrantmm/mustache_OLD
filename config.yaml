@@ -3,14 +3,26 @@ fastq_dir: 0.fastq
 genome_dir: 0.genome
 class_dir: 0.class
 insertseq_dir: 0.insertseq
-genome_sam_dir: 1.genome_sam
-insertseq_sam_dir: 1.insertseq_sam
-class_insertseq_sam_dir: 2.class_insertseq_sam
-class_genome_sam_dir: 2.class_genome_sam
-sam_merged_taxonomy_dir: 3.sam_merged_taxonomy
-sam_sorted_dir: 4.sams_sorted_indexed
-peaks_dir: 5.peaks_dir
-peaks_read_depth_dir: 5.peak_read_depths
-peak_plots_dir: 6.peak_plots
+
+combined_genome_dir: 1.combined_genomes
+combined_insertseq_dir: 1.combined_insertseqs
+
+genome_sam_dir: 2.genome_sam
+insertseq_sam_dir: 2.insertseq_sam
+
+split_genome_sam_dir: 3.split_genome_sam
+split_insertseq_sam_dir: 3.split_insertseq_sam
+
+class_insertseq_sam_dir: 4.class_insertseq_sam
+class_genome_sam_dir: 4.class_genome_sam
+
+sam_merged_taxonomy_dir: 5.sam_merged_taxonomy
+
+sam_sorted_dir: 6.sams_sorted_indexed
+
+peaks_dir: 7.peaks_dir
+peaks_read_depth_dir: 7.peak_read_depths
+
+peak_plots_dir: 8.peak_plots
 
 taxonomy_db_dir: taxonomy
