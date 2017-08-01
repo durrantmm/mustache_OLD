@@ -1,0 +1,64 @@
+{
+    "__default__": {
+        "account": "bhatt",
+        "time": "00:15:00",
+        "n": 1,
+        "partition": "core",
+        "mem": "1G"
+    },
+
+    "bowtie_build_genomes": {
+        "mem": "60G",
+        "time": "02:00:00"
+    },
+
+    "bowtie_build_insertseqs": {
+        "mem": "60G",
+        "time": "02:00:00"
+    },
+
+    "bowtie_align_to_genomes": {
+        "mem": "60G",
+        "time": "03:00:00"
+    },
+
+    "bowtie_align_to_insertseqs": {
+        "mem": "60G",
+        "time": "03:00:00"
+    },
+
+    "split_genome_alignments": {
+        "mem": "5G",
+        "time": "01:00:00"
+    },
+
+    "split_insertseq_alignments": {
+        "mem": "5G",
+        "time": "01:00:00"
+    },
+
+    "split_sam_by_class": {
+        "mem": "5G",
+        "time": "01:00:00"
+    },
+
+    "sam_merge_taxonomy": {
+        "mem": "5G",
+        "time": "01:00:00"
+    },
+
+    "samtools_sort": {
+        "mem": "5G",
+        "time": "00:30:00"
+    },
+
+    "samtools_index": {
+        "mem": "5G",
+        "time": "00:30:00"
+    },
+
+    "call_peaks": {
+        "mem": "5G",
+        "time": "01:00:00"
+    }
+}

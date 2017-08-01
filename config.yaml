@@ -26,3 +26,5 @@ peaks_read_depth_dir: 7.peak_read_depths
 peak_plots_dir: 8.peak_plots
 
 taxonomy_db_dir: taxonomy
+
+bowtie2_threads: 6

@@ -59,6 +59,7 @@ rule download_taxonomy_db:
     shell:
         'python scripts/download_taxonomy_db.py'
 
+
 rule combine_genomes:
     input:
         expand("{genome_dir}/{{genome}}.fasta".format(genome_dir=GENOME_DIR), genome=GENOMES)
@@ -66,6 +67,7 @@ rule combine_genomes:
         "{combined_genome_dir}/genomes.combined.fasta".format(combined_genome_dir=COMBINED_GENOME_DIR)
     shell:
         "python scripts/genome_combine.py {output} {input}"
+
 
 rule combine_insertseqs:
     input:
@@ -114,11 +116,12 @@ rule bowtie_align_to_genomes:
         in4 = "{combined_genome_dir}/genomes.combined.fasta.4.bt2".format(combined_genome_dir=COMBINED_GENOME_DIR),
         in5 = "{combined_genome_dir}/genomes.combined.fasta.rev.1.bt2".format(combined_genome_dir=COMBINED_GENOME_DIR),
         in6 = "{combined_genome_dir}/genomes.combined.fasta.rev.2.bt2".format(combined_genome_dir=COMBINED_GENOME_DIR)
-
     output:
         sam = "{genome_sam_dir}/{{sample}}.{{pair}}.genomes.sam".format(genome_sam_dir=GENOME_SAM_DIR)
+    threads:
+        config['bowtie2_threads']
     shell:
-        "bowtie2 -x {input.genomes} -U {input.fastq} -S {output.sam} --local --quiet --reorder --no-unal --all"
+        "bowtie2 -x {input.genomes} -U {input.fastq} -S {output.sam} -p {threads} --local --quiet --reorder --no-unal --all"
 
 
 rule bowtie_align_to_insertseqs:
@@ -133,8 +136,10 @@ rule bowtie_align_to_insertseqs:
         i6 = "{combined_insertseq_dir}/insertseqs.combined.fasta.rev.2.bt2".format(combined_insertseq_dir=COMBINED_INSERTSEQ_DIR)
     output:
         sam = "{insertseq_sam_dir}/{{sample}}.{{pair}}.insertseqs.sam".format(insertseq_sam_dir=INSERTSEQ_SAM_DIR)
+    threads:
+        config['bowtie2_threads']
     shell:
-        "bowtie2 -x {input.insertseq} -U {input.fastq} -S {output.sam} --local --quiet --reorder --no-unal --all"
+        "bowtie2 -x {input.insertseq} -U {input.fastq} -S {output.sam} -p {threads} --local --quiet --reorder --no-unal --all"
 
 
 rule split_genome_alignments:
