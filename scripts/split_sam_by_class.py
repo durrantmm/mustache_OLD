@@ -199,7 +199,7 @@ def class_gen(class_path):
         infile.readline()
         for line in infile:
             line=line.strip().split()
-            yield ('tmp', line[0])
+            yield ('tmp', line[2])
 
 def fastq_gen(fastq_path):
     with gzip.open(fastq_path, 'rt') as infile:
